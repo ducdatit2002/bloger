@@ -116,6 +116,7 @@ router.get("/post/:id", async (req, res) => {
     const locals = {
       title: data.title,
       description: "Simple Blog created with NodeJS and Express.",
+      currentRoute: '/post/${slug}',
     };
 
     console.log("Data retrieved:", data);
@@ -161,8 +162,28 @@ router.post("/search", async (req, res) => {
   }
 });
 
+/**
+ * GET / 
+ * Admin Logout
+ */
+router.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/");
+});
+
+
+
+
 router.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", {
+    currentRoute: "/about",
+  });
+});
+
+router.get("/admin", (req, res) => {
+  res.render("admin", {
+    currentRoute: "/admin",
+  });
 });
 
 module.exports = router;
